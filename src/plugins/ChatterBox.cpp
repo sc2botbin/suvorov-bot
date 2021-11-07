@@ -8,15 +8,18 @@
 
 #include <string>
 
-void ChatterBox::OnGameStart(Builder*) {
-    std::string hello(
-        std::string(PROJECT_NAME) +
-        " v" + PROJECT_VERSION +
-        " by @" + PROJECT_AUTHOR);
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
+void ChatterBox::OnGameStart(Builder*)
+{
+    std::string hello(std::string(PROJECT_NAME) +" v" + PROJECT_VERSION +" by @" + PROJECT_AUTHOR);
 
     gAPI->action().SendMessage(hello);
+    gAPI->action().SendMessage("Now made by ben: v0.1 - mybot");
     gAPI->action().SendMessage("gl hf");
 }
 
-void ChatterBox::OnStep(Builder*) {
+// ------------------------------------------------------------------
+void ChatterBox::OnStep(Builder*)
+{
 }

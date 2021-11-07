@@ -7,15 +7,16 @@
 #include "Builder.h"
 #include "Plugin.h"
 
-struct ExtraDrone : Plugin {
+struct ExtraDrone : Plugin
+{
     ExtraDrone();
 
     void OnStep(Builder*) final;
-
     void OnUnitCreated(const sc2::Unit* unit_, Builder* builder_) final;
 
  private:
-    enum State {
+    enum State
+    {
         WAIT_SUPPLY_CAP,
         WAIT_EXTRACTOR_CREATION,
         WAIT_WORKER_CREATION,

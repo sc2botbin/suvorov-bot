@@ -6,8 +6,8 @@
 
 #include "Plugin.h"
 
-struct ChatterBox: Plugin {
+struct ChatterBox: Plugin
+{
     void OnGameStart(Builder*) final;
-
     void OnStep(Builder*) final;
 };

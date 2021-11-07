@@ -89,8 +89,12 @@ int main(int argc, char* argv[]) {
 
 #else
 
-int main(int argc, char* argv[]) {
-    if (argc < 2) {
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
+int main(int argc, char* argv[])
+{
+    if (argc < 2)
+    {
         std::cerr << "Provide either name of the map file or path to it!\n";
         return -1;
     }
@@ -104,11 +108,11 @@ int main(int argc, char* argv[]) {
     // coordinator.SetFullScreen(true);
 
     // NOTE (alkurbatov): Uncomment to play at normal speed.
-    // coordinator.SetRealtime(true);
+    coordinator.SetRealtime(true);
 
-    Dispatcher bot("TrainingDummy");
+    Dispatcher bot("mybot");
     coordinator.SetParticipants({
-        CreateParticipant(sc2::Race::Random, &bot, "Suvorov"),
+        CreateParticipant(sc2::Race::Zerg, &bot, "mybot"),
         CreateComputer(
             sc2::Race::Random,
             sc2::Difficulty::CheatInsane,
@@ -120,7 +124,8 @@ int main(int argc, char* argv[]) {
     coordinator.LaunchStarcraft();
     coordinator.StartGame(argv[1]);
 
-    while (coordinator.Update()) {
+    while (coordinator.Update())
+    {
     }
 
     return 0;

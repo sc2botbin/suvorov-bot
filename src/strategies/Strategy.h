@@ -6,11 +6,11 @@
 
 #include "plugins/Plugin.h"
 
-struct Strategy : Plugin {
+struct Strategy : Plugin
+{
     explicit Strategy(float attack_limit_);
 
     void OnStep(Builder*) override;
-
     void OnUnitCreated(const sc2::Unit* unit_, Builder*) override;
 
  protected:

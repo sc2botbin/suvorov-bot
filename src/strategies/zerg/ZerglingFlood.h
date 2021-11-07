@@ -7,10 +7,11 @@
 #include "Builder.h"
 #include "strategies/Strategy.h"
 
-struct ZerglingFlood : Strategy {
+struct ZerglingFlood : Strategy
+{
     ZerglingFlood();
 
     void OnGameStart(Builder* builder_) final;
-
     void OnUnitIdle(const sc2::Unit* unit_, Builder* builder_) final;
+
 };

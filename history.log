@@ -1,0 +1,97 @@
+#4294967295 [INFO] dispatcher: Playing against an opponent with id mybot
+#0 [INFO] dispatcher: New game started!
+#0 [INFO] dispatcher: ZERG_HATCHERY(4347920385) was created
+#0 [INFO] hub: Capture region: (142.5, 33.5)
+#0 [INFO] dispatcher: ZERG_LARVA(4348706817) was created
+#0 [INFO] dispatcher: ZERG_DRONE(4350017537) was created
+#0 [INFO] dispatcher: ZERG_DRONE(4350541825) was created
+#0 [INFO] dispatcher: ZERG_OVERLORD(4352114689) was created
+#0 [INFO] dispatcher: ZERG_DRONE(4351852545) was created
+#0 [INFO] dispatcher: ZERG_DRONE(4351590401) was created
+#0 [INFO] dispatcher: ZERG_DRONE(4351328257) was created
+#0 [INFO] dispatcher: ZERG_DRONE(4351066113) was created
+#0 [INFO] dispatcher: ZERG_DRONE(4350803969) was created
+#0 [INFO] dispatcher: ZERG_DRONE(4350279681) was created
+#0 [INFO] dispatcher: ZERG_DRONE(4349755393) was created
+#0 [INFO] dispatcher: ZERG_DRONE(4349493249) was created
+#0 [INFO] dispatcher: ZERG_DRONE(4349231105) was created
+#0 [INFO] dispatcher: ZERG_DRONE(4348968961) was created
+#0 [INFO] dispatcher: ZERG_LARVA(4348444673) was created
+#0 [INFO] dispatcher: ZERG_LARVA(4348182529) was created
+#0 [INFO] dispatcher: ZERG_LARVA(4348182529) is idle
+#0 [INFO] strategy.zergling_flood: Schedule Zerglings training
+#0 [INFO] dispatcher: ZERG_HATCHERY(4347920385) is idle
+#0 [INFO] dispatcher: ZERG_LARVA(4348706817) is idle
+#0 [INFO] strategy.zergling_flood: Schedule Zerglings training
+#0 [INFO] dispatcher: ZERG_OVERLORD(4352114689) is idle
+#0 [INFO] dispatcher: ZERG_LARVA(4348444673) is idle
+#0 [INFO] strategy.zergling_flood: Schedule Zerglings training
+#0 [INFO] builder: Started building a Drone
+#1 [INFO] dispatcher: ZERG_LARVA(4356833281) was created
+#1 [INFO] dispatcher: ZERG_LARVA(4356833281) is idle
+#180 [INFO] builder: Started building a Drone
+#272 [INFO] dispatcher: ZERG_EGG(4348182529) was destroyed
+#272 [INFO] dispatcher: ZERG_DRONE(4357357569) was created
+#390 [INFO] builder: Started building a Overlord
+#420 [INFO] dispatcher: ZERG_LARVA(4353163266) was created
+#420 [INFO] dispatcher: ZERG_LARVA(4353163266) is idle
+#452 [INFO] dispatcher: ZERG_EGG(4356833281) was destroyed
+#452 [INFO] dispatcher: ZERG_DRONE(4357881857) was created
+#452 [INFO] hub: Claim object NEUTRAL_SPACEPLATFORMGEYSER
+#452 [INFO] builder: Started building a Extractor
+#453 [INFO] dispatcher: Placeholder of ZERG_EXTRACTOR was detected
+#476 [INFO] dispatcher: ZERG_EXTRACTOR(4356833282) was created
+#476 [INFO] hub: Release claimed geyser
+#476 [INFO] hub: Capture object ZERG_EXTRACTOR
+#528 [INFO] builder: Started building a Drone
+#530 [INFO] dispatcher: ZERG_EXTRACTOR(4356833282) was destroyed
+#530 [INFO] hub: Release object ZERG_EXTRACTOR
+#530 [INFO] dispatcher: ZERG_DRONE(4349231105) is idle
+#530 [INFO] hub: Our busy worker has finished task
+#660 [INFO] dispatcher: ZERG_LARVA(4356833283) was created
+#660 [INFO] dispatcher: ZERG_LARVA(4356833283) is idle
+#790 [INFO] dispatcher: ZERG_EGG(4348444673) was destroyed
+#790 [INFO] dispatcher: ZERG_OVERLORD(4352901122) was created
+#790 [INFO] dispatcher: ZERG_OVERLORD(4352901122) is idle
+#790 [INFO] builder: Started building a Drone
+#791 [INFO] builder: Started building a Drone
+#800 [INFO] dispatcher: ZERG_EGG(4353163266) was destroyed
+#800 [INFO] dispatcher: ZERG_DRONE(4348444674) was created
+#800 [INFO] strategy.zergling_flood: HatchFirst BuildOrder - At 17 food, pausing worker production till hatchery is placed.
+#900 [INFO] dispatcher: ZERG_LARVA(4353163267) was created
+#900 [INFO] dispatcher: ZERG_LARVA(4353163267) is idle
+#900 [INFO] builder: Started building a Drone
+#1062 [INFO] dispatcher: ZERG_EGG(4356833283) was destroyed
+#1062 [INFO] dispatcher: ZERG_DRONE(4357095426) was created
+#1063 [INFO] dispatcher: ZERG_EGG(4348706817) was destroyed
+#1063 [INFO] dispatcher: ZERG_DRONE(4359716865) was created
+#1140 [INFO] dispatcher: ZERG_LARVA(4352638979) was created
+#1140 [INFO] dispatcher: ZERG_LARVA(4352638979) is idle
+#1172 [INFO] dispatcher: ZERG_EGG(4353163267) was destroyed
+#1172 [INFO] dispatcher: ZERG_DRONE(4356833284) was created
+#1380 [INFO] dispatcher: ZERG_LARVA(4358668290) was created
+#1380 [INFO] dispatcher: ZERG_LARVA(4358668290) is idle
+#1620 [INFO] dispatcher: ZERG_LARVA(4360241153) was created
+#1620 [INFO] dispatcher: ZERG_LARVA(4360241153) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4351066113) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4357881857) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4357357569) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4351328257) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4349493249) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4349231105) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4350017537) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4357095426) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4351852545) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4348444674) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4351590401) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4350803969) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4350279681) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4348968961) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4349755393) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4350541825) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4359716865) is idle
+#1801 [INFO] dispatcher: ZERG_DRONE(4356833284) is idle
+#1801 [INFO] dispatcher: Game over!
+#1801 [INFO] plugin.diagnosis: Replay saved
+#1801 [ERROR] dispatcher: Encountered client error: 9
+#1801 [ERROR] dispatcher: Encountered protocol error: Game has already ended

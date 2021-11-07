@@ -11,7 +11,8 @@
 #include <sc2api/sc2_typeenums.h>
 #include <sc2api/sc2_unit.h>
 
-struct Builder {
+struct Builder
+{
     Builder();
 
     void OnStep();
@@ -24,16 +25,20 @@ struct Builder {
 
     // NOTE (alkurbatov): Optional orders are executed if we have
     // free resources available. As many as possible orders will be executed.
-    void ScheduleOptionalOrder(sc2::UNIT_TYPEID id_,
-        const sc2::Unit* assignee_ = nullptr);
-
+    void ScheduleOptionalOrder(sc2::UNIT_TYPEID id_, const sc2::Unit* assignee_ = nullptr);
     void ScheduleObligatoryOrder(sc2::UPGRADE_ID id_);
-
     void ScheduleOptionalOrder(sc2::UPGRADE_ID id_);
-
     std::list<Order> GetOrders() const;
-
     int64_t CountScheduledOrders(sc2::UNIT_TYPEID id_) const;
+
+    // Worker Production.
+    enum class WorkerProductionState
+    {
+        ACTIVE,
+        PAUSED,
+    };
+    inline void SetWorkerProductionActive(WorkerProductionState workerProductionActive_) { m_workerProductionActive = workerProductionActive_; }
+    inline WorkerProductionState GetWorkerProductionActive() { return m_workerProductionActive; }
 
  private:
     bool Build(Order* order_);
@@ -45,4 +50,6 @@ struct Builder {
 
     std::list<Order> m_must_do;
     std::list<Order> m_nice_to_have;
+
+    WorkerProductionState m_workerProductionActive = WorkerProductionState::ACTIVE;
 };

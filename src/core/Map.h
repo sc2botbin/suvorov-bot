@@ -9,18 +9,19 @@
 #include <list>
 #include <vector>
 
-enum Owner {
-    NEUTRAL = 0,  // No Townhall at expansion, no workers enroute
+enum Owner
+{
+    NEUTRAL = 0,    // No Townhall at expansion, no workers enroute
     CONTESTED = 1,  // No Townhall, Enemy may be present, Self Worker enroute
-    ENEMY = 2,  // Enemy TownHall at expansion
-    SELF = 3,  // Self TownHall at expansion, possibly under construction
+    ENEMY = 2,      // Enemy TownHall at expansion
+    SELF = 3,       // Self TownHall at expansion, possibly under construction
 };
 
-struct Expansion {
+struct Expansion
+{
     explicit Expansion(const sc2::Point3D& town_hall_location_);
 
     void SetOwner(const sc2::Unit& unit_, Owner owner_);
-
     void RemoveOwner();
 
     sc2::Point3D town_hall_location;
