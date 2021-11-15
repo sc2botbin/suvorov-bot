@@ -18,11 +18,14 @@
 template <typename T>
 struct Cache
 {
+    std::list<T>& operator()() { return m_objects; }
+
     bool Empty() const;
     uint64_t Count() const;
     void Add(const T& obj_);
     T& Back();
     void PopBack();
+    void Clear();
     bool IsCached(const T& obj_) const;
     bool Swap(const T& obj_, Cache<T>& dst_);
     bool Remove(const T& obj_);
@@ -65,6 +68,13 @@ template <typename T>
 void Cache<T>::PopBack()
 {
     m_objects.pop_back();
+}
+
+// ------------------------------------------------------------------
+template <typename T>
+void Cache<T>::Clear()
+{
+    m_objects.clear();
 }
 
 // ------------------------------------------------------------------
@@ -161,6 +171,9 @@ struct Hub
     const Cache<GameObject>&  GetLarvas() const;
     const Expansions& GetExpansions() const;
     Expansion* GetNextExpansion();
+    Expansion* GetClosestExpansion(const sc2::Point2D& location_, Owner expansionOwner_ = Owner::NEUTRAL);
+    Expansion* GetClosestExpansionExcluding(const sc2::Point2D& location_, std::vector<Expansion*> exlude_, Owner expansionOwner_ = Owner::NEUTRAL);
+    Expansion* GetClosestExpansionIncluding(const sc2::Point2D& location_, std::vector<Expansion*> include_, Owner expansionOwner_ = Owner::NEUTRAL);
     const Expansion* GetBestMiningExpansionNear(const sc2::Unit* unit_) const;
 
  private:

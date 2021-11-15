@@ -6,6 +6,7 @@
 
 #include "Blueprint.h"
 
-struct TownHall: Blueprint {
+struct TownHall: Blueprint
+{
     bool Build(Order* order_) final;
 };

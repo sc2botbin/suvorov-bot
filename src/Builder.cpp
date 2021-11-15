@@ -63,6 +63,12 @@ void Builder::ScheduleObligatoryOrder(sc2::UNIT_TYPEID id_, bool urgent)
         return;
     }
 
+    // If we are asked to make army when something has asked this to be paused, return.
+    if (IsCombatUnitType()(id_) && m_armyProductionActive == ArmyProductionState::PAUSED)
+    {
+        return;
+    }
+
     sc2::UnitTypeData structure = gAPI->observer().GetUnitTypeData(id_);
 
     // Prevent deadlock.
@@ -126,9 +132,45 @@ int64_t Builder::CountScheduledOrders(sc2::UNIT_TYPEID id_) const
          + std::count_if(m_nice_to_have.begin(), m_nice_to_have.end(), IsOrdered(id_));
 }
 
+void Builder::RemoveOrdersOfType(const sc2::UNIT_TYPEID type_)
+{
+    m_must_do.remove_if([&type_](const Order order)
+    {
+        return order.unit_type_id == type_;
+    });
+
+    m_nice_to_have.remove_if([&type_](const Order order)
+    {
+        return order.unit_type_id == type_;
+    });
+}
+
+void Builder::SetWorkerProductionActive(WorkerProductionState workerProductionActive_)
+{
+    m_workerProductionActive = workerProductionActive_;
+    if (m_workerProductionActive == WorkerProductionState::PAUSED)
+    {
+        RemoveOrdersOfType(gHub->GetCurrentWorkerType());
+    }
+}
+
 // ------------------------------------------------------------------
 bool Builder::Build(Order* order_)
 {
+    // TODO Fix the fact that it adds the drone cost to the hatchery cost. It is 350 minerals by default? Should be 300.
+    if (order_->tech_requirement == sc2::UNIT_TYPEID::ZERG_HATCHERY)
+    {
+        order_->mineral_cost = 300;
+        order_->vespene_cost = 0;
+    }
+
+    // TODO Spawning pool is 300? Should be 200.
+    if (order_->tech_requirement == sc2::UNIT_TYPEID::ZERG_SPAWNINGPOOL)
+    {
+        order_->mineral_cost = 200;
+        order_->vespene_cost = 0;
+    }
+
     if (m_minerals < order_->mineral_cost || m_vespene < order_->vespene_cost)
     {
         return false;

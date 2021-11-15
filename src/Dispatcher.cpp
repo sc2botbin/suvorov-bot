@@ -14,7 +14,9 @@
 #include "plugins/ExtraDrone.h"
 #include "plugins/Miner.h"
 #include "plugins/RepairMan.h"
+#include "plugins/OverlordFarm.h"
 #include "plugins/QuarterMaster.h"
+#include "plugins/QueenKeeper.h"
 #include "plugins/WarpSmith.h"
 #include "strategies/protoss/ChargelotPush.h"
 #include "strategies/terran/MarinePush.h"
@@ -55,7 +57,12 @@ void Dispatcher::OnGameStart()
     // gHistory.info() << "Enemy name: " << gAPI->observer().GetEnemyName() << '\n';
 
     sc2::Race current_race = gAPI->observer().GetCurrentRace();
-    gHub.reset(new Hub(current_race, CalculateExpansionLocations()));
+    Expansions expansions = CalculateExpansionLocations();
+    while(expansions.size() <= 1)
+    {
+        expansions = CalculateExpansionLocations();
+    }
+    gHub.reset(new Hub(current_race, expansions));
 
     m_plugins.emplace_back(new Miner());
     m_plugins.emplace_back(new QuarterMaster());
@@ -76,6 +83,8 @@ void Dispatcher::OnGameStart()
     {
         m_plugins.emplace_back(new ExtraDrone());
         m_plugins.emplace_back(new HatchFirst());
+        m_plugins.emplace_back(new QueenKeeper());
+        m_plugins.emplace_back(new OverlordFarm());
     }
 
 #ifndef BUILD_FOR_LADDER

@@ -6,6 +6,7 @@
 
 #include "Blueprint.h"
 
-struct Creature: Blueprint {
+struct Creature: Blueprint
+{
     bool Build(Order* order_) final;
 };

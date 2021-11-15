@@ -6,6 +6,7 @@
 
 #include "Blueprint.h"
 
-struct Queen: Blueprint {
+struct Queen: Blueprint
+{
     bool Build(Order* order_) final;
 };

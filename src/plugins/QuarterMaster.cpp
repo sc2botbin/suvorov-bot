@@ -173,10 +173,11 @@ void QuarterMaster::OnStep(Builder* builder_)
     }
 
     // Best guess at current + future supply supply total.
+    float gap = 4; // Buffer to build a supply a little early?
     Units units = gAPI->observer().GetUnits();
     float expected_consumption = gAPI->observer().GetFoodUsed() + std::accumulate(units().begin(), units().end(), 0.0f, CalcConsumptionRate());
     float expected_supply = std::accumulate(units().begin(), units().end(), 0.0f, CalcSupplies());
-    if (expected_supply > expected_consumption || expected_supply >= 200.0f)
+    if (expected_supply > (expected_consumption + gap) || expected_supply >= 200.0f)
     {
         return;
     }
@@ -185,6 +186,8 @@ void QuarterMaster::OnStep(Builder* builder_)
     gHistory.info() << "Request additional supplies: " << expected_consumption << " >= " << expected_supply << '\n';
     builder_->ScheduleObligatoryOrder(gHub->GetCurrentSupplyType(), true);
     m_skip_until_frame = gAPI->observer().GetGameLoop() + m_frames_to_skip;
+    m_frames_to_skip -= 75;
+    m_frames_to_skip = m_frames_to_skip < 0 ? 0 : m_frames_to_skip;
 }
 
 // ------------------------------------------------------------------

@@ -6,6 +6,7 @@
 #include "Historican.h"
 #include "Hub.h"
 #include "core/API.h"
+#include "plugins/ChatterBox.h"
 
 #include "HatchFirst.h"
 
@@ -32,12 +33,14 @@ void HatchFirst::OnGameStart(Builder* builder_)
     // and always has priority over the construction queue.
 
     // Hatch first.
+    ChatterBox::SendMessage("Doing a HatchFirst build.");
     builder_->ScheduleObligatoryOrder(sc2::UNIT_TYPEID::ZERG_OVERLORD);
     builder_->ScheduleObligatoryOrder(sc2::UNIT_TYPEID::ZERG_HATCHERY);
     builder_->ScheduleObligatoryOrder(sc2::UNIT_TYPEID::ZERG_EXTRACTOR);
     builder_->ScheduleObligatoryOrder(sc2::UNIT_TYPEID::ZERG_SPAWNINGPOOL);
     builder_->ScheduleObligatoryOrder(sc2::UNIT_TYPEID::ZERG_QUEEN);
     builder_->ScheduleObligatoryOrder(sc2::UNIT_TYPEID::ZERG_OVERLORD);
+    builder_->ScheduleObligatoryOrder(sc2::UPGRADE_ID::OVERLORDSPEED);
     builder_->ScheduleObligatoryOrder(sc2::UPGRADE_ID::ZERGLINGMOVEMENTSPEED);
 }
 
@@ -49,7 +52,8 @@ void HatchFirst::OnUnitCreated(const sc2::Unit* unit_, Builder* builder_)
     // Getting the first hatchery down.
     if (m_openingBuildOrderState == BuildOrderState::WAIT_TILL_FOOD_AMOUNT && unit_->unit_type.ToType() == sc2::UNIT_TYPEID::ZERG_DRONE && gAPI->observer().GetFoodUsed() >= 17)
     {
-        gHistory.info() << "HatchFirst BuildOrder - At 17 food, pausing worker production till hatchery is placed.\n";
+        gHistory.info() << "HatchFirst BuildOrder - At 17 food, pausing worker production till hatchery is started.\n";
+        ChatterBox::SendMessage("Pausing drones at 17 food and waiting till hatchery is started.");
         builder_->SetWorkerProductionActive(Builder::WorkerProductionState::PAUSED);
         m_openingBuildOrderState = BuildOrderState::WAIT_HATCHERY_CREATION;
     }
@@ -57,6 +61,7 @@ void HatchFirst::OnUnitCreated(const sc2::Unit* unit_, Builder* builder_)
     if(m_openingBuildOrderState == BuildOrderState::WAIT_HATCHERY_CREATION && unit_->unit_type.ToType() == sc2::UNIT_TYPEID::ZERG_HATCHERY)
     {
         gHistory.info() << "HatchFirst BuildOrder - Hatchery has been placed, unpausing worker production.\n";
+        ChatterBox::SendMessage("Starting drones again cause hatchery is started.");
         builder_->SetWorkerProductionActive(Builder::WorkerProductionState::ACTIVE);
         m_openingBuildOrderState = BuildOrderState::FINISHED;
     }

@@ -82,6 +82,12 @@ void Diagnosis::OnStep(Builder* builder_) {
     for (const auto& i : gHub->GetExpansions())
         gAPI->debug().DrawSphere(i.town_hall_location, 0.35f);
 
+    auto larvas = gHub->GetLarvas();
+    for (GameObject& l : larvas())
+    {
+        gAPI->debug().DrawSphere(l.GetPos(), 0.35f, sc2::Colors::Yellow);
+    }
+
     gAPI->debug().SendDebug();
 }
 

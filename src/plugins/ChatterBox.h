@@ -10,4 +10,8 @@ struct ChatterBox: Plugin
 {
     void OnGameStart(Builder*) final;
     void OnStep(Builder*) final;
+
+public:
+    static void SendMessage(const std::string& msg_);
 };
+

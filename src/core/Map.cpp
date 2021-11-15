@@ -3,6 +3,7 @@
 // Copyright (c) 2017-2021 Alexander Kurbatov
 
 #include "Helpers.h"
+#include "Hub.h"
 #include "Historican.h"
 #include "Map.h"
 #include "core/API.h"
@@ -18,6 +19,17 @@ namespace
 Historican gHistory("map");
 
 const float PI = 3.1415927f;
+
+int random_int_in_range(int min, int max) //range : [min, max]
+{
+    static bool first = true;
+    if (first)
+    {
+        srand((unsigned int)time(NULL)); //seeding for the first time only!
+        first = false;
+    }
+    return min + rand() % ((max + 1) - min);
+}
 
 size_t CalculateQueries(float radius, float step_size, const sc2::Point2D& center, std::vector<sc2::QueryInterface::PlacementQuery>* queries)
 {
@@ -197,4 +209,20 @@ Expansions CalculateExpansionLocations()
     expansions.emplace_back(gAPI->observer().StartingLocation());
 
     return expansions;
+}
+
+Expansion GetRandomExpansion()
+{
+    Expansions e = gHub->GetExpansions();
+    int min = 0;
+    int max = (int)e.size() - 1;
+
+    static bool first = true;
+    if (first)
+    {
+        srand((unsigned int)time(NULL)); //seeding for the first time only!
+        first = false;
+    }
+    int i = min + rand() % ((max + 1) - min);
+    return e[i];
 }

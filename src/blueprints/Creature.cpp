@@ -7,6 +7,7 @@
 #include "core/API.h"
 #include "core/Helpers.h"
 
-bool Creature::Build(Order* order_) {
+bool Creature::Build(Order* order_)
+{
     return gHub->AssignLarva(order_);
 }

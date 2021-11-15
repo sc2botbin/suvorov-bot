@@ -19,13 +19,21 @@ const sc2::Units& Units::operator()() const {
     return m_units;
 }
 
-const sc2::Unit* Units::GetClosestUnit(const sc2::Point2D& point_) const {
-    float distance = std::numeric_limits<float>::max();
+size_t Units::Size() const
+{
+    return m_units.size();
+}
+
+const sc2::Unit* Units::GetClosestUnit(const sc2::Point2D& point_, float min_ /*= std::numeric_limits<float>::max()*/) const
+{
+    float distance = min_;
 
     const sc2::Unit* target = nullptr;
-    for (const auto& i : m_units) {
+    for (const auto& i : m_units)
+    {
         float d = sc2::DistanceSquared2D(i->pos, point_);
-        if (d < distance) {
+        if (d < distance)
+        {
             distance = d;
             target = i;
         }
@@ -34,17 +42,32 @@ const sc2::Unit* Units::GetClosestUnit(const sc2::Point2D& point_) const {
     return target;
 }
 
-const sc2::Unit* Units::GetClosestUnit(sc2::Tag tag_) const {
+const sc2::Unit* Units::GetClosestUnit(sc2::Tag tag_, float min_ /*= std::numeric_limits<float>::max()*/) const
+{
     const sc2::Unit* unit = gAPI->observer().GetUnit(tag_);
     if (!unit)
         return nullptr;
 
-    return GetClosestUnit(unit->pos);
+    return GetClosestUnit(unit->pos, min_);
 }
 
 const sc2::Unit* Units::GetRandomUnit() const {
     int index = sc2::GetRandomInteger(0, static_cast<int>(m_units.size()) - 1);
     return m_units[static_cast<unsigned>(index)];
+}
+
+sc2::Point3D Units::GetCenter() const
+{
+    sc2::Point3D center = m_units.back()->pos;
+
+    for (const sc2::Unit* i : m_units)
+    {
+        center += i->pos;
+    }
+
+    center /= (float)m_units.size();
+
+    return center;
 }
 
 bool Units::HasOrder(sc2::ABILITY_ID id_) const {

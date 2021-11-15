@@ -6,7 +6,8 @@
 
 #include "Blueprint.h"
 
-struct Unit: Blueprint {
+struct Unit: Blueprint
+{
     explicit Unit(sc2::UNIT_TYPEID who_builds_);
 
     bool Build(Order* order_) final;

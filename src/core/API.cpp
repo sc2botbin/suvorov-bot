@@ -33,6 +33,14 @@ void Action::Attack(const sc2::Units& units_, const sc2::Point2D& point_) {
     m_action->UnitCommand(units_, sc2::ABILITY_ID::ATTACK_ATTACK, point_);
 }
 
+void Action::Move(const sc2::Unit* unit_, const sc2::Point2D& point_) {
+    m_action->UnitCommand(unit_, sc2::ABILITY_ID::MOVE_MOVE, point_);
+}
+
+void Action::Move(const sc2::Units& units_, const sc2::Point2D& point_) {
+    m_action->UnitCommand(units_, sc2::ABILITY_ID::MOVE_MOVE, point_);
+}
+
 void Action::Cast(const sc2::Unit& assignee_, sc2::ABILITY_ID ability_) {
     m_action->UnitCommand(&assignee_, convert::ToAbilityID(ability_));
 }

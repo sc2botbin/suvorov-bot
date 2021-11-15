@@ -35,3 +35,4 @@ typedef std::vector<Expansion> Expansions;
 
 // NOTE (alkurbatov): Slightly optimised version of the builtin function.
 Expansions CalculateExpansionLocations();
+Expansion GetRandomExpansion();

@@ -23,3 +23,9 @@ void ChatterBox::OnGameStart(Builder*)
 void ChatterBox::OnStep(Builder*)
 {
 }
+
+// ------------------------------------------------------------------
+void ChatterBox::SendMessage(const std::string& msg_)
+{
+    gAPI->action().SendMessage(msg_);
+}

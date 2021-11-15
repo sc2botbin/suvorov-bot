@@ -108,15 +108,15 @@ int main(int argc, char* argv[])
     // coordinator.SetFullScreen(true);
 
     // NOTE (alkurbatov): Uncomment to play at normal speed.
-    coordinator.SetRealtime(true);
+    // coordinator.SetRealtime(true);
 
     Dispatcher bot("mybot");
     coordinator.SetParticipants({
         CreateParticipant(sc2::Race::Zerg, &bot, "mybot"),
         CreateComputer(
             sc2::Race::Random,
-            sc2::Difficulty::CheatInsane,
-            sc2::AIBuild::Rush,
+            sc2::Difficulty::VeryEasy,
+            sc2::AIBuild::Macro,
             "CheatInsane"
         )
     });

@@ -5,12 +5,29 @@
 #pragma once
 
 #include "Order.h"
+#include "core/API.h"
 
 #include <sc2api/sc2_common.h>
 #include <sc2api/sc2_unit.h>
 
 #include <set>
 
+struct MultiFilter
+{
+    enum class Selector
+    {
+        And,
+        Or
+    };
+
+    MultiFilter(Selector selector_, std::initializer_list<sc2::Filter> filters_);
+
+    bool operator()(const sc2::Unit& unit_) const;
+
+private:
+    std::vector<sc2::Filter> m_filters;
+    Selector m_selector;
+};
 
 struct IsUnit {
     explicit IsUnit(sc2::UNIT_TYPEID type_);
@@ -32,6 +49,18 @@ struct OneOfUnits {
 
 struct IsCombatUnit {
     bool operator()(const sc2::Unit& unit_) const;
+};
+
+struct IsCombatUnitType {
+    bool operator()(const sc2::UNIT_TYPEID& id_) const;
+};
+
+struct CanAttackAir {
+    bool operator()(const sc2::Unit& unit_) const;
+};
+
+struct CanAttackAirUnitType {
+    bool operator()(const sc2::UNIT_TYPEID& id_) const;
 };
 
 struct IsFoggyResource {
@@ -70,6 +99,16 @@ struct IsIdleTownHall {
 
 struct IsCommandCenter {
     bool operator()(const sc2::Unit& unit_) const;
+};
+
+struct IsWithinRange {
+    explicit IsWithinRange(sc2::Point3D point_, float min_ = std::numeric_limits<float>::max());
+
+    bool operator()(const sc2::Unit& unit_) const;
+
+private:
+    sc2::Point3D m_point;
+    float m_min;
 };
 
 struct IsOrdered {

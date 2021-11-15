@@ -24,8 +24,7 @@ namespace
     {
         auto town_halls = gAPI->observer().GetUnits(sc2::IsTownHall());
 
-        for (const auto& i : town_halls())
-        {
+        for (const auto& i : town_halls()) {
             if (!i->orders.empty() || !i->IsBuildFinished())
             {
                 continue;

@@ -30,6 +30,7 @@ struct Builder
     void ScheduleOptionalOrder(sc2::UPGRADE_ID id_);
     std::list<Order> GetOrders() const;
     int64_t CountScheduledOrders(sc2::UNIT_TYPEID id_) const;
+    void RemoveOrdersOfType(const sc2::UNIT_TYPEID type_);
 
     // Worker Production.
     enum class WorkerProductionState
@@ -37,8 +38,17 @@ struct Builder
         ACTIVE,
         PAUSED,
     };
-    inline void SetWorkerProductionActive(WorkerProductionState workerProductionActive_) { m_workerProductionActive = workerProductionActive_; }
+    void SetWorkerProductionActive(WorkerProductionState workerProductionActive_);
     inline WorkerProductionState GetWorkerProductionActive() { return m_workerProductionActive; }
+
+    // Army Production
+    enum class ArmyProductionState
+    {
+        ACTIVE,
+        PAUSED,
+    };
+    inline void SetArmyProductionActive(ArmyProductionState armyProductionActive_) { m_armyProductionActive = armyProductionActive_; }
+    inline ArmyProductionState GetArmyProductionActive() { return m_armyProductionActive; }
 
  private:
     bool Build(Order* order_);
@@ -52,4 +62,5 @@ struct Builder
     std::list<Order> m_nice_to_have;
 
     WorkerProductionState m_workerProductionActive = WorkerProductionState::ACTIVE;
+    ArmyProductionState m_armyProductionActive = ArmyProductionState::ACTIVE;
 };

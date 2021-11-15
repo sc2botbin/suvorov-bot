@@ -105,7 +105,14 @@ void Hub::OnUnitCreated(const sc2::Unit& unit_)
         // Storing newly created zerg larva.
         case sc2::UNIT_TYPEID::ZERG_LARVA:
         {
-            m_larva.Add(GameObject(unit_));
+            m_larva.Clear();
+
+            Units larvas = gAPI->observer().GetUnits(sc2::IsUnit(sc2::UNIT_TYPEID::ZERG_LARVA));
+            for(const sc2::Unit* larva : larvas())
+            {
+                m_larva.Add(GameObject((*larva)));
+            }
+
             return;
         }
 
@@ -253,17 +260,17 @@ void Hub::OnUnitIdle(const sc2::Unit& unit_)
         }
 
         // An IDLE larva?
-        case sc2::UNIT_TYPEID::ZERG_LARVA:
-        {
-            GameObject obj = GameObject(unit_);
-            if (!m_larva.IsCached(obj))
-            {
-                m_larva.Add(obj);
-                gHistory.info() << "Picked up an idle larva.\n";
-            }
-
-            return;
-        }
+        // case sc2::UNIT_TYPEID::ZERG_LARVA:
+        // {
+        //     GameObject obj = GameObject(unit_);
+        //     if (!m_larva.IsCached(obj))
+        //     {
+        //         m_larva.Add(obj);
+        //         gHistory.info() << "Picked up an idle larva.\n";
+        //     }
+        // 
+        //     return;
+        // }
 
         default:
         {
@@ -420,7 +427,7 @@ const Expansions& Hub::GetExpansions() const
 }
 
 // ------------------------------------------------------------------
-Expansion*  Hub::GetNextExpansion()
+Expansion* Hub::GetNextExpansion()
 {
     auto it = std::find_if(m_expansions.begin(), m_expansions.end(),
         [](const Expansion& expansion_)
@@ -435,6 +442,108 @@ Expansion*  Hub::GetNextExpansion()
 
     it->owner = Owner::CONTESTED;
     return &(*it);
+}
+
+Expansion* Hub::GetClosestExpansion(const sc2::Point2D& location_, Owner expansionOwner_ /*= Owner::NEUTRAL*/)
+{
+    auto closest_expansion = m_expansions.end();
+    float distance = std::numeric_limits<float>::max();
+    for(auto it = m_expansions.begin(); it != m_expansions.end(); ++it)
+    {
+        if(it->owner == expansionOwner_)
+        {
+            float d = sc2::DistanceSquared2D(it->town_hall_location, location_);
+            if (d >= distance)
+            {
+                continue;
+            }
+
+            distance = d;
+            closest_expansion = it;
+        }
+    }
+
+    if (closest_expansion == m_expansions.end())
+    {
+        return nullptr;
+    }
+
+    return &(*closest_expansion);
+}
+
+// ------------------------------------------------------------------
+Expansion* Hub::GetClosestExpansionExcluding(const sc2::Point2D& location_, std::vector<Expansion*> exclude_, Owner expansionOwner_ /*= Owner::NEUTRAL*/)
+{
+    auto closest_expansion = m_expansions.end();
+    float distance = std::numeric_limits<float>::max();
+    for (auto it = m_expansions.begin(); it != m_expansions.end(); ++it)
+    {
+        if (it->owner == expansionOwner_)
+        {
+            bool valid = true;
+
+            float d = sc2::DistanceSquared2D(it->town_hall_location, location_);
+            if (d >= distance)
+            {
+                valid = false;
+            }
+
+            for (const Expansion* e : exclude_)
+            {
+                if (e->town_hall_tag == it->town_hall_tag)
+                {
+                    valid = false;
+                    break;
+                }
+            }
+
+            if(valid)
+            {
+                distance = d;
+                closest_expansion = it;
+            }
+        }
+    }
+
+    if (closest_expansion == m_expansions.end())
+    {
+        return nullptr;
+    }
+
+    return &(*closest_expansion);
+}
+
+// ------------------------------------------------------------------
+Expansion* Hub::GetClosestExpansionIncluding(const sc2::Point2D& location_, std::vector<Expansion*> include_, Owner expansionOwner_ /*= Owner::NEUTRAL*/)
+{
+    if(include_.size() == 0)
+    {
+        return nullptr;
+    }
+
+    auto closest_expansion = (*include_.end());
+    float distance = std::numeric_limits<float>::max();
+    for (auto it = include_.begin(); it != include_.end(); ++it)
+    {
+        if((*it)->owner == expansionOwner_)
+        {
+            float d = sc2::DistanceSquared2D((*it)->town_hall_location, location_);
+            if (d >= distance)
+            {
+                continue;
+            }
+
+            distance = d;
+            closest_expansion = (*it);
+        }
+    }
+
+    if (closest_expansion == &(*m_expansions.end()))
+    {
+        return nullptr;
+    }
+
+    return &(*closest_expansion);
 }
 
 // ------------------------------------------------------------------
